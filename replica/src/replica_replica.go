@@ -49,8 +49,9 @@ type Replica struct {
 
 	serverStarted bool // to bootstrap
 
-	mode           int             // 1 for all to all broadcast and 2 for selective broadcast
-	memPool        *MemPool        // mempool
+	mode    int      // 1 for all to all broadcast and 2 for selective broadcast
+	memPool *MemPool // mempool
+
 	asyncConsensus *AsyncConsensus // async consensus data structs
 
 	consensusStarted bool // to send the initial vote messages for genesis block
@@ -105,9 +106,11 @@ func New(name int32, cfg *configuration.InstanceConfig, logFilePath string, repl
 		replicaBatchSize: replicaBatchSize,
 		replicaBatchTime: replicaBatchTime,
 
-		outgoingMessageChan:  make(chan *common.OutgoingRPC, outgoingBufferSize),
-		debugOn:              debugOn,
-		debugLevel:           debugLevel,
+		outgoingMessageChan: make(chan *common.OutgoingRPC, outgoingBufferSize),
+
+		debugOn:    debugOn,
+		debugLevel: debugLevel,
+
 		serverStarted:        false,
 		mode:                 mode,
 		consensusStarted:     false,
@@ -163,6 +166,7 @@ func New(name int32, cfg *configuration.InstanceConfig, logFilePath string, repl
 	/*
 		Register the rpcs
 	*/
+
 	rp.RegisterRPC(new(proto.ClientBatch), rp.messageCodes.ClientBatchRpc)
 	rp.RegisterRPC(new(proto.Status), rp.messageCodes.StatusRPC)
 	rp.RegisterRPC(new(proto.MemPool), rp.messageCodes.MemPoolRPC)
@@ -237,7 +241,7 @@ func (rp *Replica) getNodeType(id int32) string {
 
 func (rp *Replica) debug(message string, level int) {
 	if rp.debugOn && level >= rp.debugLevel {
-		fmt.Print(message)
+		fmt.Print(message + "\n")
 	}
 }
 

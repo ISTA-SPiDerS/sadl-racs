@@ -2,9 +2,7 @@ package src
 
 import (
 	"fmt"
-	"log"
 	"math/rand"
-	"os"
 	"sadl-racs/common"
 	"sadl-racs/proto"
 	"strconv"
@@ -12,8 +10,9 @@ import (
 )
 
 /*
-defines the data structures specific to Mem Blocks
+	defines the data structures specific to Mem Blocks
 */
+
 type MemPool struct {
 	blockMap             MessageStore         //saves the blocks
 	incomingBuffer       []*proto.ClientBatch // saves client batches that need to be added to a future  mem blocks
@@ -73,9 +72,11 @@ func (rp *Replica) handleMemPool(message *proto.MemPool) {
 		if node != rp.name {
 			rp.memPool.lastCompletedRounds[node-1] = sequence
 		}
+
 		if rp.debugOn {
 			common.Debug("Last Completed Rounds are "+fmt.Sprintf("%v", rp.memPool.lastCompletedRounds), 0, rp.debugLevel, rp.debugOn)
 		}
+
 		// send Mem-Pool-Mem-Block-Ack 2 to the sender
 		memPoolAck := proto.MemPool{
 			Sender:        rp.name,
@@ -102,6 +103,7 @@ func (rp *Replica) handleMemPool(message *proto.MemPool) {
 		if sequence > rp.memPool.lastSeenAck[message.Sender-1] {
 			rp.memPool.lastSeenAck[message.Sender-1] = sequence
 		}
+
 		if message.UniqueId == strconv.Itoa(int(rp.name))+"."+strconv.Itoa(rp.memPool.indexCounter-1) && rp.memPool.awaitingAcks == true {
 			rp.memPool.blockMap.AddAck(message.UniqueId, message.Sender)
 			acks := rp.memPool.blockMap.GetAcks(message.UniqueId)
@@ -175,6 +177,7 @@ func (rp *Replica) createNewMemBlock() {
 		}
 
 		var batches []*proto.ClientBatch
+
 		if len(rp.memPool.incomingBuffer) <= rp.replicaBatchSize {
 			batches = rp.memPool.incomingBuffer
 			rp.memPool.incomingBuffer = make([]*proto.ClientBatch, 0)
@@ -336,32 +339,32 @@ func (rp *Replica) handleClientBatch(batch *proto.ClientBatch) {
 	rp.createNewMemBlock()
 }
 
-/*
-	Printing the mem store for debug purpose
-*/
-
-func (rp *Replica) printLogMemPool() {
-	f, err := os.Create(rp.logFilePath + strconv.Itoa(int(rp.name)) + "-mem-pool.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer f.Close()
-
-	for memBlockID, memBlock := range rp.memPool.blockMap.MessageBlocks {
-		clientBatches := memBlock.MessageBlock.ClientBatches
-		for clientBatchIndex := 0; clientBatchIndex < len(clientBatches); clientBatchIndex++ {
-			clientBatch := clientBatches[clientBatchIndex]
-			clientBatchID := clientBatch.UniqueId
-			clientBatchCommands := clientBatch.Requests
-			for clientRequestIndex := 0; clientRequestIndex < len(clientBatchCommands); clientRequestIndex++ {
-				clientRequest := clientBatchCommands[clientRequestIndex].Command
-				_, _ = f.WriteString(memBlockID + "-" + clientBatchID + "-" + strconv.Itoa(clientRequestIndex) + ":" + clientRequest + "\n")
-			}
-		}
-
-	}
-
-}
+///*
+//	Printing the mem store for debug purpose
+//*/
+//
+//func (rp *Replica) printLogMemPool() {
+//	f, err := os.Create(rp.logFilePath + strconv.Itoa(int(rp.name)) + "-mem-pool.txt")
+//	if err != nil {
+//		log.Fatal(err)
+//	}
+//	defer f.Close()
+//
+//	for memBlockID, memBlock := range rp.memPool.blockMap.MessageBlocks {
+//		clientBatches := memBlock.MessageBlock.ClientBatches
+//		for clientBatchIndex := 0; clientBatchIndex < len(clientBatches); clientBatchIndex++ {
+//			clientBatch := clientBatches[clientBatchIndex]
+//			clientBatchID := clientBatch.UniqueId
+//			clientBatchCommands := clientBatch.Requests
+//			for clientRequestIndex := 0; clientRequestIndex < len(clientBatchCommands); clientRequestIndex++ {
+//				clientRequest := clientBatchCommands[clientRequestIndex].Command
+//				_, _ = f.WriteString(memBlockID + "-" + clientBatchID + "-" + strconv.Itoa(clientRequestIndex) + ":" + clientRequest + "\n")
+//			}
+//		}
+//
+//	}
+//
+//}
 
 /*
 	send back the client response batches

@@ -118,6 +118,7 @@ func (rp *Replica) WaitForConnections() {
 		if err != nil {
 			panic(err.Error())
 		}
+
 		if rp.debugOn {
 			common.Debug("Listening to incoming connection in "+rp.listenAddress, 0, rp.debugLevel, rp.debugOn)
 		}
@@ -166,7 +167,9 @@ func (rp *Replica) Run() {
 		if rp.debugOn {
 			common.Debug("Checking channel..", 0, rp.debugLevel, rp.debugOn)
 		}
+
 		replicaMessage := <-rp.incomingChan
+
 		if rp.debugOn {
 			common.Debug("Received replica message", 0, rp.debugLevel, rp.debugOn)
 		}
