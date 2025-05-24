@@ -8,8 +8,6 @@ import (
 	"strconv"
 )
 
-const CLIENT_TIMEOUT = 5000000
-
 /*
 	calculate the number of elements in the 2d array
 */
@@ -69,6 +67,7 @@ func (cl *Client) computeStats() {
 	numTotalSentRequests := cl.getNumberOfSentRequests(cl.sentRequests)
 	var latencyList []int64 // contains the time duration spent requests in micro seconds
 	responses := 0
+
 	for i := 0; i < numRequestGenerationThreads; i++ {
 		fmt.Printf("Calculating stats for thread %d \n", i)
 		for j := 0; j < len(cl.sentRequests[i]); j++ {
@@ -80,21 +79,11 @@ func (cl *Client) computeStats() {
 				startTime := batch.time
 				endTime := responseBatch.time
 				batchLatency := endTime.Sub(startTime).Microseconds()
-				if batchLatency < CLIENT_TIMEOUT {
-					latencyList = cl.addValueNToArrayMTimes(latencyList, batchLatency, len(batch.batch.Requests))
-					cl.printRequests(batch.batch, startTime.Sub(cl.startTime).Microseconds(), endTime.Sub(cl.startTime).Microseconds(), f)
-					responses += len(batch.batch.Requests)
-				} else {
-					latencyList = cl.addValueNToArrayMTimes(latencyList, CLIENT_TIMEOUT, len(batch.batch.Requests))
-					cl.printRequests(batch.batch, startTime.Sub(cl.startTime).Microseconds(), startTime.Sub(cl.startTime).Microseconds()+CLIENT_TIMEOUT, f)
-				}
-			} else {
-				startTime := batch.time
-				batchLatency := CLIENT_TIMEOUT
-				latencyList = cl.addValueNToArrayMTimes(latencyList, int64(batchLatency), len(batch.batch.Requests))
-				cl.printRequests(batch.batch, startTime.Sub(cl.startTime).Microseconds(), startTime.Sub(cl.startTime).Microseconds()+CLIENT_TIMEOUT, f)
-			}
 
+				latencyList = cl.addValueNToArrayMTimes(latencyList, batchLatency, len(batch.batch.Requests))
+				cl.printRequests(batch.batch, startTime.Sub(cl.startTime).Microseconds(), endTime.Sub(cl.startTime).Microseconds(), f)
+				responses += len(batch.batch.Requests)
+			}
 		}
 	}
 

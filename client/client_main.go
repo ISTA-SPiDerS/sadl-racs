@@ -35,6 +35,7 @@ func main() {
 
 	cl.WaitForConnections()
 	cl.Run()
+
 	cl.StartOutgoingLinks()
 	cl.ConnectToReplicas()
 

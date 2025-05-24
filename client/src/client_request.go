@@ -32,6 +32,7 @@ func (cl *Client) handleClientResponseBatch(batch *proto.ClientBatch) {
 	cl.receivedNumMutex.Lock()
 	cl.numReceivedBatches++
 	cl.receivedNumMutex.Unlock()
+
 	if cl.debugOn {
 		cl.debug("Added response Batch with id "+batch.UniqueId, 0)
 	}
@@ -41,7 +42,8 @@ func (cl *Client) handleClientResponseBatch(batch *proto.ClientBatch) {
 	start the poisson arrival process (put arrivals to arrivalTimeChan) in a separate thread
 	start request generation processes
 	start the scheduler that schedules new requests
-	the thread sleeps for a duration and then starts processing the responses. This is to handle inflight responses after the test duration
+	the thread sleeps for a duration and then starts processing the responses.
+	This is to handle inflight responses after the test duration
 */
 
 func (cl *Client) SendRequests() {
@@ -72,7 +74,9 @@ func (cl *Client) startRequestGenerators() {
 				}
 				numRequests := 0
 				var requests []*proto.SingleOperation
+
 				// this loop collects requests until the minimum batch size is met OR the batch time is timeout
+
 				for !(numRequests >= cl.clientBatchSize || (time.Now().Sub(lastSent).Microseconds() > int64(cl.clientBatchTime) && numRequests > 0)) {
 					_ = <-cl.arrivalChan // keep collecting new requests arrivals
 					requests = append(requests, &proto.SingleOperation{
@@ -95,9 +99,11 @@ func (cl *Client) startRequestGenerators() {
 					Requests: requests,
 					Sender:   int64(cl.clientName),
 				}
+
 				if cl.debugOn {
 					cl.debug("Sending "+strconv.Itoa(int(cl.clientName))+"."+strconv.Itoa(threadNumber)+"."+strconv.Itoa(localCounter)+" batch size "+strconv.Itoa(len(requests)), 0)
 				}
+
 				rpcPair := common.RPCPair{
 					Code: cl.messageCodes.ClientBatchRpc,
 					Obj:  &batch,

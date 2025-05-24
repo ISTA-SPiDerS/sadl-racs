@@ -9,6 +9,7 @@ import (
 	"sadl-racs/common"
 	"sadl-racs/proto"
 	"strconv"
+	"time"
 )
 
 /*
@@ -37,11 +38,14 @@ func (cl *Client) ConnectToReplicas() {
 				if err != nil {
 					panic("error while connecting to replica " + strconv.Itoa(int(name)))
 				}
+
 				if cl.debugOn {
 					cl.debug("Established outgoing connection to "+strconv.Itoa(int(name)), 0)
 				}
+
 				break
 			} else {
+				time.Sleep(time.Duration(100) * time.Millisecond)
 				if counter == 1000000 {
 					panic(fmt.Sprintf("cannot connect to replica %v", err))
 				}
@@ -65,11 +69,13 @@ func (cl *Client) WaitForConnections() {
 		if err != nil {
 			panic("should not happen " + fmt.Sprintf("%v", err))
 		}
+
 		if cl.debugOn {
 			cl.debug("Listening to incoming connection on "+cl.clientListenAddress, 0)
 		}
 
 		for true {
+
 			conn, err := Listener.Accept()
 			if err != nil {
 				panic("Socket accept error" + fmt.Sprintf("%v", err))
@@ -77,6 +83,7 @@ func (cl *Client) WaitForConnections() {
 			if _, err := io.ReadFull(conn, bs); err != nil {
 				panic("connection read error when establishing incoming connections" + fmt.Sprintf("%v", err))
 			}
+
 			id := int32(binary.LittleEndian.Uint16(bs))
 
 			if cl.debugOn {
@@ -85,6 +92,7 @@ func (cl *Client) WaitForConnections() {
 
 			cl.incomingReplicaReaders[id] = bufio.NewReader(conn)
 			go cl.connectionListener(cl.incomingReplicaReaders[id], id)
+
 			if cl.debugOn {
 				cl.debug("Started listening to "+strconv.Itoa(int(id)), 0)
 			}
@@ -123,6 +131,7 @@ func (cl *Client) connectionListener(reader *bufio.Reader, id int32) {
 				Code: msgType,
 				Obj:  obj,
 			}
+
 			if cl.debugOn {
 				cl.debug("Pushed a message from "+strconv.Itoa(int(id)), 0)
 			}
@@ -148,7 +157,9 @@ func (cl *Client) Run() {
 			if cl.debugOn {
 				cl.debug("Checking channel..", 0)
 			}
+
 			replicaMessage := <-cl.incomingChan
+
 			if cl.debugOn {
 				cl.debug("Received message", 0)
 			}
@@ -167,6 +178,7 @@ func (cl *Client) Run() {
 				if cl.debugOn {
 					cl.debug("Client status from "+fmt.Sprintf("%#v", clientStatusResponse.Sender), 0)
 				}
+
 				cl.handleClientStatusResponse(clientStatusResponse)
 				break
 			}

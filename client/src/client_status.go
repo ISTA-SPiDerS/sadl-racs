@@ -39,6 +39,7 @@ func (cl *Client) SendStatus(operationType int) {
 		}
 
 		cl.sendMessage(name, rpcPair)
+
 		if cl.debugOn {
 			cl.debug("Sent status to "+strconv.Itoa(int(name)), 0)
 		}
