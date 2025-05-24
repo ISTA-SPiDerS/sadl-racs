@@ -12,7 +12,7 @@ import (
 )
 
 /*
-	AsyncConsensus stores the data structures for the consensus
+	AsyncConsensus stores the data structures for the RACS
 */
 
 type AsyncConsensus struct {
