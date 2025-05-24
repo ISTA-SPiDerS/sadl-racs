@@ -198,13 +198,9 @@ type MemPool struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Sender   int32  `protobuf:"varint,1,opt,name=sender,proto3" json:"sender,omitempty"`
-	UniqueId string `protobuf:"bytes,2,opt,name=unique_id,json=uniqueId,proto3" json:"unique_id,omitempty"`
-	Type     int32  `protobuf:"varint,3,opt,name=type,proto3" json:"type,omitempty"`
-	// Mem-Pool-Mem-Block 1
-	// Mem-Pool-Mem-Block-Ack 2
-	// Mem-Pool-Mem-Block-Request 3
-	// Mem-Pool-Mem-Block-Response 4
+	Sender        int32          `protobuf:"varint,1,opt,name=sender,proto3" json:"sender,omitempty"`
+	UniqueId      string         `protobuf:"bytes,2,opt,name=unique_id,json=uniqueId,proto3" json:"unique_id,omitempty"`
+	Type          int32          `protobuf:"varint,3,opt,name=type,proto3" json:"type,omitempty"`
 	Note          string         `protobuf:"bytes,4,opt,name=note,proto3" json:"note,omitempty"`
 	ClientBatches []*ClientBatch `protobuf:"bytes,5,rep,name=clientBatches,proto3" json:"clientBatches,omitempty"`
 	RoundNumber   int64          `protobuf:"varint,6,opt,name=roundNumber,proto3" json:"roundNumber,omitempty"`
