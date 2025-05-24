@@ -31,7 +31,9 @@ func (rp *Replica) handleStatus(message *proto.Status) {
 					_ = <-rp.incomingChan
 				}
 			}()
+
 			//rp.printLogMemPool() // this is for the mem pool testing purposes
+
 			if rp.consAlgo == "async" {
 				rp.printLogConsensus() // this is for consensus testing purposes
 			}
