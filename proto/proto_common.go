@@ -4,7 +4,6 @@ import "io"
 
 /*
 	each message sent over the network should implement this interface
-	If a new message type needs to be added: first define it in a proto file, generate the go protobuf files using mage generate and then implement the three methods
 */
 
 type Serializable interface {
