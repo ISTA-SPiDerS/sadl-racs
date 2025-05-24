@@ -16,7 +16,7 @@ message ClientBatch {
 }
 
 /*
-  Status is sent by a client to inform replicas about actions that include, but not limited to
+  Status is sent by a client to inform replicas about actions that include,
   1. To establish connections to other nodes
   2. To write the logs to files
 */
@@ -28,23 +28,17 @@ message Status {
 }
 
 /*
-  MemPool is the message for all messages related to the MemPool
-    Mem-Pool-Mem-Block (from replica to replica)
-    Mem-Pool-Mem-Block-Ack (from replica to replica)
-    Mem-Pool-Mem-Block-Request (from replica to replica)
-    Mem-Pool-Mem-Block-Response (from replica to replica)
+  MemPool is the message for all messages related to the SADL
+    Mem-Pool-Mem-Block 1
+    Mem-Pool-Mem-Block-Ack 2
+    Mem-Pool-Mem-Block-Request 3
+    Mem-Pool-Mem-Block-Response 4
 */
 
 message MemPool {
   int32 sender = 1;
   string unique_id = 2;
   int32 type = 3;
-  /*
-    Mem-Pool-Mem-Block 1
-    Mem-Pool-Mem-Block-Ack 2
-    Mem-Pool-Mem-Block-Request 3
-    Mem-Pool-Mem-Block-Response 4
-  */
   string note = 4;
   repeated ClientBatch clientBatches = 5;
   int64 roundNumber = 6;
@@ -53,7 +47,7 @@ message MemPool {
 }
 
 /*
-    AsyncConsensus defines the single consensus proto message type
+    AsyncConsensus defines the single RACS proto message type
 */
 
 message AsyncConsensus {
