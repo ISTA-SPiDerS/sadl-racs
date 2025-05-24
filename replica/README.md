@@ -1,1 +1,0 @@
-Replica implements the overlay for mem-blocks and consensus logic
