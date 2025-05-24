@@ -34,8 +34,6 @@ func (rp *Replica) handleStatus(message *proto.Status) {
 			//rp.printLogMemPool() // this is for the mem pool testing purposes
 			if rp.consAlgo == "async" {
 				rp.printLogConsensus() // this is for consensus testing purposes
-			} else if rp.consAlgo == "paxos" {
-				rp.printPaxosLogConsensus() // this is for consensus testing purposes
 			}
 
 		}
@@ -44,12 +42,6 @@ func (rp *Replica) handleStatus(message *proto.Status) {
 			rp.consensusStarted = true
 			if rp.consAlgo == "async" {
 				rp.sendGenesisConsensusVote()
-			} else if rp.consAlgo == "paxos" {
-				rp.paxosConsensus.startTime = time.Now()
-				rp.paxosConsensus.lastCommittedTime = time.Now()
-				if rp.name == 1 {
-					rp.sendPrepare()
-				}
 			}
 		}
 	}

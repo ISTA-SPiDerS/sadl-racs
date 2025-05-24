@@ -204,15 +204,6 @@ func (rp *Replica) Run() {
 			}
 			rp.handleAsyncConsensus(asyncConsensusMessage)
 			break
-
-		case rp.messageCodes.PaxosConsensus:
-			paxosConsensusMessage := replicaMessage.Obj.(*proto.PaxosConsensus)
-			if rp.debugOn {
-				common.Debug("Paxos consensus message from "+fmt.Sprintf("%#v", paxosConsensusMessage.Sender), 0, rp.debugLevel, rp.debugOn)
-			}
-			rp.handlePaxosConsensus(paxosConsensusMessage)
-			break
-
 		}
 	}
 }

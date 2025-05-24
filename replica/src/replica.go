@@ -52,7 +52,6 @@ type Replica struct {
 	mode           int             // 1 for all to all broadcast and 2 for selective broadcast
 	memPool        *MemPool        // mempool
 	asyncConsensus *AsyncConsensus // async consensus data structs
-	paxosConsensus *Paxos          // Paxos consensus data structs
 
 	consensusStarted bool // to send the initial vote messages for genesis block
 	viewTimeout      int  // view change timeout in micro seconds
@@ -127,7 +126,6 @@ func New(name int32, cfg *configuration.InstanceConfig, logFilePath string, repl
 	// init mem pool
 	rp.memPool = InitMemPool(mode, len(cfg.Peers), rp.debugLevel, rp.debugOn, window)
 	rp.asyncConsensus = InitAsyncConsensus(debugLevel, debugOn, len(cfg.Peers))
-	rp.paxosConsensus = InitPaxosConsensus(len(cfg.Peers))
 
 	// add genesis mem block with round 0 to mem pool
 	rp.memPool.blockMap.Add(&proto.MemPool{
