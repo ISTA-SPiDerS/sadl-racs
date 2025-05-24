@@ -12,18 +12,21 @@ import (
 */
 
 // Instance describes a single  instance connection information
+
 type Instance struct {
 	Name    string `yaml:"name"`
 	Address string `yaml:"address"` // address should be in the form x.x.x.x:yyyy
 }
 
 // InstanceConfig describes the set of peers and clients in the system
+
 type InstanceConfig struct {
 	Peers   []Instance `yaml:"peers"`
 	Clients []Instance `yaml:"clients"`
 }
 
 // NewInstanceConfig loads a  instance configuration from given file
+
 func NewInstanceConfig(fname string, name int64) (*InstanceConfig, error) {
 	var cfg InstanceConfig
 	data, err := ioutil.ReadFile(fname)
