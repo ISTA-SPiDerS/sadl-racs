@@ -56,17 +56,6 @@ func ExtractSequenceNumber(unique_id string) (int32, int) {
 }
 
 /*
-	Accepts a map[int32]int and returns a random key
-*/
-
-func Get_Some_Node(m map[int32]int) int32 {
-	for k := range m {
-		return k // go map iteration is random
-	}
-	panic("should not happen")
-}
-
-/*
 	Timer for triggering event upon timeout
 */
 
