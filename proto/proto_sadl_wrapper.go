@@ -49,6 +49,7 @@ func (t *MemPool) Unmarshal(wire io.Reader) error {
 	}
 	return nil
 }
+
 func (t *MemPool) New() Serializable {
 	return new(MemPool)
 }

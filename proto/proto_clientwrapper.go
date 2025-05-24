@@ -96,6 +96,7 @@ func (t *Status) Unmarshal(wire io.Reader) error {
 	}
 	return nil
 }
+
 func (t *Status) New() Serializable {
 	return new(Status)
 }
