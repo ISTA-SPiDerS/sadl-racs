@@ -500,7 +500,9 @@ func (rp *Replica) handleConsensusFallbackCompleteMessage(message *proto.AsyncCo
 			Code: rp.messageCodes.AsyncConsensus,
 			Obj:  message,
 		}
+
 		rp.sendMessage(rp.name, rpcPair)
+
 		if rp.debugOn {
 			common.Debug("Sent an internal fallback-complete because I still haven't reached the view ", 1, rp.debugLevel, rp.debugOn)
 		}
