@@ -1,0 +1,109 @@
+syntax = "proto3";
+option go_package = "proto/";
+
+message SingleOperation {
+  string command = 1;
+}
+
+/*
+  Client batch refers to a client request batch, or a client response batch
+*/
+
+message ClientBatch {
+  string unique_id = 1;
+  repeated SingleOperation requests = 2;
+  int64 sender = 3;
+}
+
+/*
+  Status is sent by a client to inform replicas about actions that include, but not limited to
+  1. To establish connections to other nodes
+  2. To write the logs to files
+*/
+
+message Status {
+  int32 type = 1; // 1 for bootstrap, 2 for log print, 3 consensus start
+  string note = 2;
+  int64 sender = 3;
+}
+
+/*
+  MemPool is the message for all messages related to the MemPool
+    Mem-Pool-Mem-Block (from replica to replica)
+    Mem-Pool-Mem-Block-Ack (from replica to replica)
+    Mem-Pool-Mem-Block-Request (from replica to replica)
+    Mem-Pool-Mem-Block-Response (from replica to replica)
+*/
+
+message MemPool {
+  int32 sender = 1;
+  string unique_id = 2;
+  int32 type = 3;
+  /*
+    Mem-Pool-Mem-Block 1
+    Mem-Pool-Mem-Block-Ack 2
+    Mem-Pool-Mem-Block-Request 3
+    Mem-Pool-Mem-Block-Response 4
+  */
+  string note = 4;
+  repeated ClientBatch clientBatches = 5;
+  int64 roundNumber = 6;
+  string parentBlockId = 7;
+  int32 creator = 8;
+}
+
+/*
+    AsyncConsensus defines the single consensus proto message type
+*/
+
+message AsyncConsensus {
+  int32 sender = 1;
+  int32 receiver = 2;
+  string unique_id = 3; // to specify the fall back block id to which the vote async is for
+  int32 type = 4; // 1-propose, 2-vote, 3-timeout, 4-propose-async, 5-vote-async, 6-timeout-internal, 7-consensus-external-request, 8-consensus-external-response, 9-fallback-complete
+  string note = 5;
+  int32 v = 6 ; // view number
+  int32 r = 7;// round number
+  message Block {
+    string id = 1;
+    int32 v = 2 ; // view number
+    int32 r = 3;// round number
+    Block parent = 4;
+    repeated int32 commands = 5;
+    int32 level = 6; // for the fallback mode
+  }
+  Block blockHigh = 8;
+  Block blockNew = 9;
+  Block blockCommit = 10;
+}
+
+/*
+  PaxosConsensus defines the single consensus proto message type used for Paxos
+*/
+
+message PaxosConsensus {
+  int32 sender = 1;
+  int32 receiver = 2;
+  string unique_id = 3;
+  int32 type = 4; // 1-prepare, 2-promise, 3-propose, 4-accept, 5 internal timeout
+  string note = 5;
+
+  int32 instance_number = 6; // initial id for prepare messages, instance id for propose message
+
+  int32 prepare_ballot = 7;
+  int32 promise_ballot = 8;
+  int32 propose_ballot = 9;
+  int32 accept_balllot = 10;
+
+  int32 view = 11;
+
+  message instance{
+    int32 instance_number = 1;
+    int32 last_accepted_ballot = 2;
+    repeated int32 last_accepted_value = 3;
+  }
+  repeated instance promiseReply = 12;
+  repeated int32 propose_value = 13;
+
+  repeated int32 decided_value = 14; // decided value for (instance_number - 1) for a propose message
+}

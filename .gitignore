@@ -1,0 +1,13 @@
+*.log
+*.csv
+*.pdf
+*.png
+*.pyc
+*.txt
+*.zip
+*idea/
+experiments/private_key_aws/pasindu2023
+experiments/private_key_aws/pasindu2023.pub
+mandator-sporades/vendor/
+pipelined-sporades/vendor/
+venv/
