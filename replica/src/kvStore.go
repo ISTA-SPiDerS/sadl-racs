@@ -3,7 +3,7 @@ package src
 import (
 	"context"
 	"github.com/go-redis/redis/v8"
-	"mandator-sporades/proto"
+	"sadl-racs/proto"
 )
 
 /*

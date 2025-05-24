@@ -3,16 +3,16 @@ package src
 import (
 	"fmt"
 	"log"
-	"mandator-sporades/common"
-	"mandator-sporades/proto"
 	"math/rand"
 	"os"
+	"sadl-racs/common"
+	"sadl-racs/proto"
 	"strconv"
 	"time"
 )
 
 /*
-	defines the data structures specific to Mem Blocks
+defines the data structures specific to Mem Blocks
 */
 type MemPool struct {
 	blockMap             MessageStore         //saves the blocks
@@ -59,7 +59,7 @@ func InitMemPool(mode int, numReplicas int, debugLevel int, debugOn bool, window
 }
 
 /*
-	Handler for MemPool Messages
+Handler for MemPool Messages
 */
 func (rp *Replica) handleMemPool(message *proto.MemPool) {
 

@@ -1,4 +1,4 @@
-This repository implements Sporades consensus protocol and a Mandator memory pool.
+This repository implements Racs consensus protocol and a SADL memory pool.
 
 Our protocol uses [Protocol Buffers](https://developers.google.com/protocol-buffers/).
 It requires the ```protoc``` compiler with the ```go``` output plugin installed.

@@ -3,9 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"mandator-sporades/configuration"
-	"mandator-sporades/replica/src"
 	"os"
+	"sadl-racs/configuration"
+	"sadl-racs/replica/src"
 )
 
 func main() {

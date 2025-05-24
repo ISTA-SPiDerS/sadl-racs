@@ -2,8 +2,8 @@ package main
 
 import (
 	"flag"
-	"mandator-sporades/client/src"
-	"mandator-sporades/configuration"
+	"sadl-racs/client/src"
+	"sadl-racs/configuration"
 	"time"
 )
 

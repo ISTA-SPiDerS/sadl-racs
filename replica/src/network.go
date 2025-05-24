@@ -5,9 +5,9 @@ import (
 	"encoding/binary"
 	"fmt"
 	"io"
-	"mandator-sporades/common"
-	"mandator-sporades/proto"
 	"net"
+	"sadl-racs/common"
+	"sadl-racs/proto"
 	"strconv"
 	"time"
 )

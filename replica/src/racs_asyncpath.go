@@ -2,8 +2,8 @@ package src
 
 import (
 	"fmt"
-	"mandator-sporades/common"
-	"mandator-sporades/proto"
+	"sadl-racs/common"
+	"sadl-racs/proto"
 	"strconv"
 	"strings"
 	"time"
@@ -246,7 +246,7 @@ func (rp *Replica) handleConsensusProposeAsync(message *proto.AsyncConsensus) {
 }
 
 /*
-	handler for consensus async vote messages
+handler for consensus async vote messages
 */
 func (rp *Replica) handleConsensusAsyncVote(message *proto.AsyncConsensus) {
 	//	if the view is equal to current view and  isAsync is true

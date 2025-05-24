@@ -2,8 +2,8 @@ package src
 
 import (
 	"fmt"
-	"mandator-sporades/common"
-	"mandator-sporades/proto"
+	"sadl-racs/common"
+	"sadl-racs/proto"
 )
 
 /*

@@ -3,11 +3,11 @@ package src
 import (
 	"bufio"
 	"fmt"
-	"mandator-sporades/common"
-	"mandator-sporades/configuration"
-	"mandator-sporades/proto"
 	"math/rand"
 	"os"
+	"sadl-racs/common"
+	"sadl-racs/configuration"
+	"sadl-racs/proto"
 	"strconv"
 	"sync"
 )

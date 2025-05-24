@@ -2,8 +2,8 @@ package common
 
 import (
 	"fmt"
-	"mandator-sporades/configuration"
-	"mandator-sporades/proto"
+	"sadl-racs/configuration"
+	"sadl-racs/proto"
 	"strconv"
 	"strings"
 	"time"
@@ -114,8 +114,7 @@ func (t *TimerWithCancel) SetTimeoutFunction(f func()) {
 }
 
 /*
-	Cancel timer
-
+Cancel timer
 */
 func (t *TimerWithCancel) Cancel() {
 	select {

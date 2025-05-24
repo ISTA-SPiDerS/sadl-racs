@@ -3,10 +3,10 @@ package src
 import (
 	"fmt"
 	"log"
-	"mandator-sporades/common"
-	"mandator-sporades/proto"
 	"math/rand"
 	"os"
+	"sadl-racs/common"
+	"sadl-racs/proto"
 	"strconv"
 	"time"
 )
