@@ -8,7 +8,7 @@ batchSi = 1
 networkBatchTim = 3
 asyncSimTim = 0
 
-for cons in ["paxos", "async"]:
+for cons in ["async"]:
     for m in [1]:
         os.system("/bin/bash integration-test/safety_test.sh " + str(arr) + " " + str(
             viewTimeout) + " " + str(batchTi) + " " + str(batchSi) + " " + str(
@@ -22,7 +22,7 @@ batchSi = 50
 networkBatchTim = 3
 asyncSimTim = 0
 
-for cons in ["paxos", "async"]:
+for cons in ["async"]:
     for m in [1]:
         os.system("/bin/bash integration-test/safety_test.sh " + str(arr) + " " + str(
             viewTimeout) + " " + str(batchTi) + " " + str(batchSi) + " " + str(
@@ -37,7 +37,7 @@ batchSi = 50
 networkBatchTim = 3
 asyncSimTim = 120
 
-for cons in ["paxos", "async"]:
+for cons in ["async"]:
     for m in [1]:
         os.system("/bin/bash integration-test/safety_test.sh " + str(arr) + " " + str(
             viewTimeout) + " " + str(batchTi) + " " + str(batchSi) + " " + str(

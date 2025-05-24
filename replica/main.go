@@ -11,7 +11,7 @@ import (
 func main() {
 	name := flag.Int64("name", 1, "name of the replica as specified in the configuration.yml")
 	configFile := flag.String("config", "configuration/local/configuration.yml", "configuration file")
-	consAlgo := flag.String("consAlgo", "async", "consensus algo [async, paxos]")
+	consAlgo := flag.String("consAlgo", "async", "consensus algo [async]")
 	logFilePath := flag.String("logFilePath", "logs/", "log file path")
 	batchSize := flag.Int("batchSize", 50, "batch size")
 	batchTime := flag.Int("batchTime", 5000, "maximum time to wait for collecting a batch of requests in micro seconds")

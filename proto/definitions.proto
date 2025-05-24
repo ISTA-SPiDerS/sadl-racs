@@ -76,34 +76,3 @@ message AsyncConsensus {
   Block blockNew = 9;
   Block blockCommit = 10;
 }
-
-/*
-  PaxosConsensus defines the single consensus proto message type used for Paxos
-*/
-
-message PaxosConsensus {
-  int32 sender = 1;
-  int32 receiver = 2;
-  string unique_id = 3;
-  int32 type = 4; // 1-prepare, 2-promise, 3-propose, 4-accept, 5 internal timeout
-  string note = 5;
-
-  int32 instance_number = 6; // initial id for prepare messages, instance id for propose message
-
-  int32 prepare_ballot = 7;
-  int32 promise_ballot = 8;
-  int32 propose_ballot = 9;
-  int32 accept_balllot = 10;
-
-  int32 view = 11;
-
-  message instance{
-    int32 instance_number = 1;
-    int32 last_accepted_ballot = 2;
-    repeated int32 last_accepted_value = 3;
-  }
-  repeated instance promiseReply = 12;
-  repeated int32 propose_value = 13;
-
-  repeated int32 decided_value = 14; // decided value for (instance_number - 1) for a propose message
-}

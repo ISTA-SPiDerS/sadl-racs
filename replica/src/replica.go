@@ -60,7 +60,7 @@ type Replica struct {
 
 	networkBatchTime int // delay for consensus propose messages ms
 
-	consAlgo string // async/paxos
+	consAlgo string // async
 
 	benchmarkMode    int        // 0 for resident K/V store, 1 for redis
 	state            *Benchmark // k/v store
@@ -167,7 +167,6 @@ func New(name int32, cfg *configuration.InstanceConfig, logFilePath string, repl
 	rp.RegisterRPC(new(proto.Status), rp.messageCodes.StatusRPC)
 	rp.RegisterRPC(new(proto.MemPool), rp.messageCodes.MemPoolRPC)
 	rp.RegisterRPC(new(proto.AsyncConsensus), rp.messageCodes.AsyncConsensus)
-	rp.RegisterRPC(new(proto.PaxosConsensus), rp.messageCodes.PaxosConsensus)
 
 	if rp.isAsynchronous {
 		// initialize the attack replicas for each time epoch, we assume a total number of time of the run to be 10 minutes just for convenience, but this does not affect the correctness

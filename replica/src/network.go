@@ -222,13 +222,6 @@ func (rp *Replica) internalSendMessage(peer int32, rpcPair *common.RPCPair) {
 			}
 		}
 
-		if rpcPair.Code == rp.messageCodes.PaxosConsensus {
-			paxosMessage := rpcPair.Obj.(*proto.PaxosConsensus)
-			if paxosMessage.Type == 3 {
-				time.Sleep(time.Duration(rp.networkBatchTime) * time.Millisecond)
-			}
-		}
-
 		w := rp.outgoingReplicaWriters[peer]
 		if w == nil {
 			panic("replica not found")

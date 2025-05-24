@@ -22,7 +22,6 @@ type MessageCode struct {
 	StatusRPC      uint8
 	MemPoolRPC     uint8
 	AsyncConsensus uint8
-	PaxosConsensus uint8
 }
 
 /*
@@ -35,6 +34,5 @@ func GetRPCCodes() MessageCode {
 		StatusRPC:      2,
 		MemPoolRPC:     3,
 		AsyncConsensus: 4,
-		PaxosConsensus: 5,
 	}
 }
