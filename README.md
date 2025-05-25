@@ -18,15 +18,15 @@ To run locally `/bin/bash integration-test/safety_test.sh 100 300000000 5000 100
 
 ## Repository Structure
 
-The repository contains the following key components: 
+The repository contains the following key folders: 
 
-`client/` implements the client software.
+- `client/` implements the client software.
 
-`replica/` contain the `RACS` and `SADL` logic.
+- `replica/` contain the `RACS` and `SADL` logic.
 
-`proto/` holds the protobuf definitions.
+- `proto/` holds the protobuf definitions.
 
-`integration-test/` contains the sample execution with 5 replicas.
+- `integration-test/` contains the sample execution with 5 replicas.
 
 ## Protocol Overview
 
