@@ -7,12 +7,10 @@ for i in range(1, len(sys.argv)):
     with open(sys.argv[i]) as file:
         lines = [line.rstrip() for line in file]
 
-    numberOfRequests = 0
     for l in lines:
         key = l.split(":")[0]
         value = l.split(":")[1]
         dict[key] = value
-        numberOfRequests = numberOfRequests + 1
 
     files.append(dict)
 
@@ -20,6 +18,7 @@ for i in range(1, len(sys.argv)):
 def checkMaps(files):
     misMatch = 0
     match = 0
+
     for i in range(len(files)):
         map = files[i]
         mapName = sys.argv[i + 1]
