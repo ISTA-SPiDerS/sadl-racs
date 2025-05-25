@@ -6,7 +6,5 @@
 *.txt
 *.zip
 *idea/
-experiments/private_key_aws/pasindu2023
-experiments/private_key_aws/pasindu2023.pub
-sadl-racs/vendor/
+vendor/
 venv/
