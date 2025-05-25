@@ -14,6 +14,8 @@ Install `Go 1.19` and `protoc`.
 
 To build the project, run `build.sh`.
 
+To run locally `/bin/bash integration-test/safety_test.sh 100 300000000 5000 100 5`
+
 ## Repository Structure
 
 The repository contains the following key components: 
