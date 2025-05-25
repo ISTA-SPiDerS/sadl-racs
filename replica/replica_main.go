@@ -13,7 +13,7 @@ func main() {
 	configFile := flag.String("config", "configuration/local/configuration.yml", "configuration file")
 	consAlgo := flag.String("consAlgo", "async", "consensus algo [async]")
 	logFilePath := flag.String("logFilePath", "logs/", "log file path")
-	batchSize := flag.Int("batchSize", 50, "batch size")
+	batchSize := flag.Int("batchSize", 50, "sadl batch size")
 	batchTime := flag.Int("batchTime", 5000, "maximum time to wait for collecting a batch of requests in micro seconds")
 	debugOn := flag.Bool("debugOn", false, "false or true")
 	isAsync := flag.Bool("isAsync", false, "false or true for simulating asynchrony")
